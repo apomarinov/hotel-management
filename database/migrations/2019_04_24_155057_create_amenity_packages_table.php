@@ -15,7 +15,7 @@ class CreateAmenityPackagesTable extends Migration
     {
         Schema::create('amenity_packages', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('name');
+            $table->string('name');
         });
     }
 

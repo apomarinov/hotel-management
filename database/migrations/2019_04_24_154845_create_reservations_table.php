@@ -18,7 +18,7 @@ class CreateReservationsTable extends Migration
             $table->integer('hotel_id');
             $table->dateTime('date_from');
             $table->dateTime('date_to');
-            $table->text('notes');
+            $table->text('notes')->nullable();
             $table->unsignedInteger('reservation_status_id');
             $table->timestamps();
         });

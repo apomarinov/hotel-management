@@ -15,7 +15,7 @@ class CreateReservationStatusesTable extends Migration
     {
         Schema::create('reservation_statuses', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('type', 50);
+            $table->string('type', 50)->unique();
         });
     }
 

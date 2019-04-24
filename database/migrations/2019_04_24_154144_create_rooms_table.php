@@ -19,6 +19,8 @@ class CreateRoomsTable extends Migration
             $table->integer('floor');
             $table->unsignedInteger('number');
             $table->unsignedInteger('amenity_package_id');
+
+            $table->unique(['hotel_id', 'floor', 'number']);
         });
     }
 

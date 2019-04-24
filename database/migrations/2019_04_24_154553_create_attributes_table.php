@@ -17,6 +17,7 @@ class CreateAttributesTable extends Migration
             $table->increments('id');
             $table->string('type', 50);
             $table->string('value', 100);
+            $table->unique(['type', 'value']);
         });
     }
 
