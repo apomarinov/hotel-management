@@ -1,0 +1,28 @@
+version: "3"
+services:
+  app:
+    image: apomarinov/htm
+    container_name: app
+    networks:
+      - app
+    ports:
+      - "80:80"
+    volumes:
+      - ./:/var/www/html
+  db:
+    image: mysql
+    container_name: db
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment: 
+      - MYSQL_ROOT_PASSWORD=secret_pass
+      - MYSQL_DATABASE=db
+    networks: 
+      - app
+  cache:
+    image: redis
+    container_name: cache
+    networks:
+      - app
+networks:
+  app:
