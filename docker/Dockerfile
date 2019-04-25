@@ -46,4 +46,7 @@ RUN apt update && apt install -y nodejs
 RUN npm install -g npm
 
 #entrypoint
-CMD [ "sh", "-c", "apache2ctl -D FOREGROUND" ]
+COPY entrypoint.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
+CMD [ "sh", "-c", "entrypoint.sh" ]

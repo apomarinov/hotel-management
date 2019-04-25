@@ -3,6 +3,9 @@ services:
   app:
     image: apomarinov/htm
     container_name: app
+    environment:
+        - INITIAL=1
+        - SEED=1
     networks:
       - app
     ports:
@@ -24,5 +27,12 @@ services:
     container_name: cache
     networks:
       - app
+  adminer:
+      image: adminer
+      container_name: adminer
+      networks:
+          - app
+      ports:
+          - "90:8080"
 networks:
   app:
