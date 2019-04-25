@@ -8,14 +8,15 @@
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 
         <!-- Styles -->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
 
     </head>
     <body>
         <div id="app" class="hero is-info is-fullheight">
+            {{-- navigation bar --}}
             <navigation :tab="'{{ Request::segment(1) ?? '' }}'" inline-template>
                 <div class="hero-head" >
                     <nav class="navbar">
@@ -24,13 +25,13 @@
                                 <a class="navbar-item" href="/">
                                     <i class="fas fa-h-square fa-2x"></i>
                                 </a>
-                                <span class="navbar-burger burger" data-target="navbarMenuHeroA" onclick="document.querySelector('.navbar-menu').classList.toggle('is-active'); document.querySelector('.navbar-burger').classList.toggle('is-active');">
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                            </span>
+                                <span class="navbar-burger burger" data-target="navbarMenuHeroA" :class="burgerMenu ? 'is-active' : ''" @click="burgerMenu = !burgerMenu" >
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </span>
                             </div>
-                            <div id="navbarMenuHeroA" class="navbar-menu">
+                            <div id="navbarMenuHeroA" class="navbar-menu" :class="burgerMenu ? 'is-active' : ''">
                                 <div class="navbar-end">
                                     <a v-for="t in tabs" :href="t" :class="tabClasses(t)">
                                         @{{ t | capitalize }}
@@ -50,11 +51,19 @@
                 </div>
             </navigation>
 
-            <!-- Hero content: will be in the middle -->
+            {{-- content --}}
             <div class="hero-body">
-                <div class="container has-text-centered">
+                <div class="container">
                     @yield('content')
                 </div>
+            </div>
+
+            <div class="hero-foot">
+                <nav class="is-boxed is-fullwidth">
+                    <div class="container">
+                        @yield('footer')
+                    </div>
+                </nav>
             </div>
         </div>
 

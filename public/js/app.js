@@ -18,7 +18,8 @@ __webpack_require__.r(__webpack_exports__);
   mixins: [vue2_filters__WEBPACK_IMPORTED_MODULE_0___default.a.mixin],
   data: function data() {
     return {
-      tabs: ['reservations', 'clients', 'rooms']
+      tabs: ['reservations', 'clients', 'rooms'],
+      burgerMenu: false
     };
   },
   methods: {
@@ -56,6 +57,7 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 window.Event = new Vue();
 Vue.use(__webpack_require__(/*! vue2-filters */ "./node_modules/vue2-filters/dist/vue2-filters.js"));
+Vue.use(__webpack_require__(/*! vue-filter-date-format */ "./node_modules/vue-filter-date-format/dist/vue-filter-date-format.esm.js"));
 Vue.config.productionTip = false;
 /**
  * The following block of code may be used to automatically register your

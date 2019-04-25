@@ -1,12 +1,14 @@
 #!/usr/bin/env bash
 
+# used when doploying
 if [[ -n "${BUILD}" ]]; then
   cd /var/www/html
   composer install
-else
-  apache2ctl -D FOREGROUND
+  npm install
+  npm run prod
 fi
 
+# when running for first time locally
 if [[ -n "${INITIAL}" ]]; then
     cd /var/www/html
 
@@ -15,6 +17,8 @@ if [[ -n "${INITIAL}" ]]; then
 
         if [[ -z "${APP_KEY}" ]]; then
             composer install
+            npm install
+            npm run prod
             php artisan key:generate
             php artisan config:cache
 
@@ -25,4 +29,9 @@ if [[ -n "${INITIAL}" ]]; then
             fi
         fi
     fi
+fi
+
+# if we are not deploying, start apache
+if [[ -z "${BUILD}" ]]; then
+  apache2ctl -D FOREGROUND
 fi

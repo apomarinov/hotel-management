@@ -13,6 +13,7 @@ window.axios = require('axios');
 window.Event = new Vue();
 
 Vue.use(require('vue2-filters'));
+Vue.use(require('vue-filter-date-format'));
 
 Vue.config.productionTip = false;
 /**

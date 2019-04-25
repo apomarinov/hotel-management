@@ -8,7 +8,9 @@ class Client extends Model
 {
     protected $guarded = [];
 
-    protected $hidden = ['pivot'];
+    protected $hidden = [
+        'pivot'
+    ];
 
     public function reservations()
     {

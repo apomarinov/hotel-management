@@ -11,7 +11,8 @@
                     'reservations',
                     'clients',
                     'rooms'
-                ]
+                ],
+                burgerMenu: false
             }
         },
         methods: {
