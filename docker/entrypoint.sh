@@ -3,6 +3,8 @@
 if [[ -n "${BUILD}" ]]; then
   cd /var/www/html
   composer install
+else
+  apache2ctl -D FOREGROUND
 fi
 
 if [[ -n "${INITIAL}" ]]; then
@@ -24,5 +26,3 @@ if [[ -n "${INITIAL}" ]]; then
         fi
     fi
 fi
-
-apache2ctl -D FOREGROUND
