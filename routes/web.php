@@ -11,6 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'HomeController@index');
+
+Route::resource('reservations', 'ReservationsController');
+Route::resource('clients', 'ClientsController');
+Route::resource('rooms', 'RoomsController');
+
