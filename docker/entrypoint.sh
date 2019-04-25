@@ -14,6 +14,7 @@ if [[ -n "${INITIAL}" ]]; then
         if [[ -z "${APP_KEY}" ]]; then
             composer install
             php artisan key:generate
+            php artisan config:cache
 
             if [[ -n "${SEED}" ]]; then
                 php artisan migrate:fresh --seeder=AppSeeder
