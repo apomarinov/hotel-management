@@ -16,9 +16,8 @@
             <div class="columns is-marginless is-boxed is-fullwidth">
                 <div class="column"></div>
                 <div class="column is-three-fifths">
-
                     <div class="box" v-for="r in reservations.data">
-                        <article class="media">
+                        <div class="media">
                             <div class="media-content">
                                 <div class="content">
                                     <p>
@@ -52,7 +51,7 @@
                                     </div>
                                 </nav>
                             </div>
-                        </article>
+                        </div>
                     </div>
                 </div>
                 <div class="column"></div>

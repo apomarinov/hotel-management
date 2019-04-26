@@ -17,6 +17,7 @@ class CreateAmenityPackageAttributeTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('attribute_id');
             $table->unsignedInteger('amenity_package_id');
+            $table->integer('quantity');
             $table->unique(['attribute_id', 'amenity_package_id'], 'unique_key');
 
             $table->foreign('attribute_id')->references('id')->on('attributes')->onDelete('cascade');

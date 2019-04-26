@@ -16,4 +16,9 @@ Route::get('/', 'HomeController@index');
 Route::resource('reservations', 'ReservationsController');
 Route::resource('clients', 'ClientsController');
 Route::resource('rooms', 'RoomsController');
+Route::resource('hotels', 'HotelsController');
+Route::resource('reservation-status', 'ReservationStatusController');
+
+Route::get('available-rooms', 'RoomsController@availableRooms');
+Route::delete('reservations/{reservation}/clients/{client}', 'ReservationsController@deleteClient');
 

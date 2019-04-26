@@ -21,7 +21,9 @@
         created() {
             ReservationService
                 .list(1)
-                .then(data => this.reservations = data);
+                .then(data => {
+                    this.reservations = data
+                });
         }
     }
 </script>

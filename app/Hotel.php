@@ -17,4 +17,10 @@ class Hotel extends Model
     {
         return $this->hasMany(Reservation::class);
     }
+
+
+    public function availableRooms()
+    {
+        return self::whith('rooms')->has('rooms', '<', 1)->get();
+    }
 }

@@ -19,8 +19,9 @@ class ReservationSeeder extends Seeder
     {
         $faker = Faker\Factory::create();
 
+        $freeRooms = 5;
         $clientIds = Client::all()->pluck('id');
-        $roomIds = Room::all()->pluck('id');
+        $roomIds = Room::all()->shuffle()->slice($freeRooms)->pluck('id');
 
         $firstHotelId = Hotel::min('id');
         $lastHotelId = Hotel::max('id');

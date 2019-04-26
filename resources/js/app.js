@@ -13,6 +13,7 @@ window.Event = new Vue();
 
 Vue.use(require('vue2-filters'));
 Vue.use(require('vue-moment'));
+Vue.use(require('buefy'));
 
 Vue.config.productionTip = false;
 

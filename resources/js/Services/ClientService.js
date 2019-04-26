@@ -1,18 +1,20 @@
 export default class ReservationService {
 
     static apiUrl() {
-        return '/reservations';
+        return '/clients';
     }
 
-    static clientsUrl() {
-        return 'clients';
-    }
-
-    static list(page) {
+    static save(data) {
+        let url = this.apiUrl();
+        let method = 'post';
+        if(data.id) {
+            url = `${url}/${data.id}`;
+            method = 'patch';
+        }
         return new Promise((resolve, reject) => {
-            axios.get(this.apiUrl(), {params: {page: page}})
+            axios[method](url, data)
                 .then(response => {
-
+                    console.log(response);
                     resolve(response.data);
                 })
                 .catch(error => {
@@ -21,9 +23,9 @@ export default class ReservationService {
         });
     }
 
-    static removeClient(reservationId, clientId) {
+    static delete(id) {
         return new Promise((resolve, reject) => {
-            let url = this.apiUrl()+`/${reservationId}/`+this.clientsUrl()+`/${clientId}`;
+            let url = this.apiUrl()+`/${id}/`;
             axios.delete(url)
                 .then(response => {
                     resolve(response.data);

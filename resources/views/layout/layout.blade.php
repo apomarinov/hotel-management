@@ -9,15 +9,18 @@
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
 
-        <!-- Styles -->
+        <!-- Icons -->
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.materialdesignicons.com/2.5.94/css/materialdesignicons.min.css">
+
+        <!-- Styles -->
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
 
     </head>
     <body>
         <div id="app" class="hero is-info is-fullheight">
             {{-- navigation bar --}}
-            <navigation :tab="'{{ Request::segment(1) ?? '' }}'" inline-template>
+            <navigation tab="{{ Request::segment(1) ?? '' }}" inline-template>
                 <div class="hero-head">
                     <nav class="navbar">
                         <div class="container">
@@ -33,7 +36,7 @@
                             </div>
                             <div id="navbarMenuHeroA" class="navbar-menu" :class="burgerMenu ? 'is-active' : ''">
                                 <div class="navbar-end">
-                                    <a v-for="t in tabs" :href="t" :class="getTabClasses(t)">
+                                    <a v-for="t in tabs" :href="'/' + t" :class="getTabClasses(t)">
                                         @{{ t | capitalize }}
                                     </a>
                                     <span class="navbar-item">
