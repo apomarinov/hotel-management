@@ -3,7 +3,6 @@
 use App\Attribute;
 use App\Item;
 use App\ReservationStatus;
-use App\Room;
 use Illuminate\Database\Migrations\Migration;
 
 class PopulateExampleData extends Migration
@@ -34,34 +33,41 @@ class PopulateExampleData extends Migration
                 'type' => 'misc',
                 'value' => 'Romantic Lights'
             ],
-        ],
-        Item::class => [
             [
-                'name' => 'Bathtub'
+                'type' => 'misc',
+                'value' => 'Bathtub'
             ],
             [
-                'name' => 'TV'
+                'type' => 'tech',
+                'value' => 'TV'
             ],
             [
-                'name' => 'PS 4'
+                'type' => 'tech',
+                'value' => 'PS 4'
             ],
             [
-                'name' => 'Air Conditioner'
+                'type' => 'tech',
+                'value' => 'Air Conditioner'
             ],
             [
-                'name' => 'Wardrobe'
+                'type' => 'furniture',
+                'value' => 'Wardrobe'
             ],
             [
-                'name' => 'Fridge'
+                'type' => 'tech',
+                'value' => 'Fridge'
             ],
             [
-                'name' => 'Single Bed'
+                'type' => 'furniture',
+                'value' => 'Single Bed'
             ],
             [
-                'name' => 'King Size Bed'
+                'type' => 'furniture',
+                'value' => 'King Size Bed'
             ],
             [
-                'name' => 'Sofa'
+                'type' => 'furniture',
+                'value' => 'Sofa'
             ]
         ],
         ReservationStatus::class => [

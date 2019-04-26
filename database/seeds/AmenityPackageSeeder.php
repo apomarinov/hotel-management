@@ -31,7 +31,8 @@ class AmenityPackageSeeder extends Seeder
     {
         $viewAttributeIds = Attribute::where('type', 'view')->get()->pluck('id');
         $miscAttributeIds = Attribute::where('type', 'misc')->get()->pluck('id');
-        $itemIds = Item::all()->pluck('id');
+        $techAttributeIds = Attribute::where('type', 'tech')->get()->pluck('id');
+        $furnitureAttributeIds = Attribute::where('type', 'furniture')->get()->pluck('id');
 
         foreach ($this->packages as $p) {
             AmenityPackage::insert($p);
@@ -39,7 +40,8 @@ class AmenityPackageSeeder extends Seeder
 
             $p->attributes()->attach($viewAttributeIds->random());
             $p->attributes()->attach($miscAttributeIds->random(3));
-            $p->items()->attach($itemIds->random(3)->toArray(), ['quantity' => 1]);
+            $p->attributes()->attach($techAttributeIds->random(2));
+            $p->attributes()->attach($furnitureAttributeIds->random(3)->toArray(), ['quantity' => 1]);
         }
     }
 }
