@@ -8,14 +8,14 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
-
 window.axios = require('axios');
 window.Event = new Vue();
 
 Vue.use(require('vue2-filters'));
-Vue.use(require('vue-filter-date-format'));
+Vue.use(require('vue-moment'));
 
 Vue.config.productionTip = false;
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -24,10 +24,13 @@ Vue.config.productionTip = false;
  * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
  */
 
-// const files = require.context('./', true, /\.vue$/i);
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
+const files = require.context('./', true, /\.vue$/i);
+files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
-Vue.component('navigation', require('./components/Navigation.vue').default);
+Vue.component('pagination', require('laravel-vue-bulma-paginator'));
+
+// Vue.component('navigation', require('./components/Navigation.vue').default);
+// Vue.component('pagination', require('./components/Pagination.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

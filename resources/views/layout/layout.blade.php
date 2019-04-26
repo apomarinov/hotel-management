@@ -18,7 +18,7 @@
         <div id="app" class="hero is-info is-fullheight">
             {{-- navigation bar --}}
             <navigation :tab="'{{ Request::segment(1) ?? '' }}'" inline-template>
-                <div class="hero-head" >
+                <div class="hero-head">
                     <nav class="navbar">
                         <div class="container">
                             <div class="navbar-brand">
@@ -33,7 +33,7 @@
                             </div>
                             <div id="navbarMenuHeroA" class="navbar-menu" :class="burgerMenu ? 'is-active' : ''">
                                 <div class="navbar-end">
-                                    <a v-for="t in tabs" :href="t" :class="tabClasses(t)">
+                                    <a v-for="t in tabs" :href="t" :class="getTabClasses(t)">
                                         @{{ t | capitalize }}
                                     </a>
                                     <span class="navbar-item">
@@ -56,14 +56,6 @@
                 <div class="container">
                     @yield('content')
                 </div>
-            </div>
-
-            <div class="hero-foot">
-                <nav class="is-boxed is-fullwidth">
-                    <div class="container">
-                        @yield('footer')
-                    </div>
-                </nav>
             </div>
         </div>
 

@@ -9,12 +9,14 @@ class ReservationsController extends Controller
     public function index()
     {
         $resultsPerPage = 4;
-        $notesLimit = 190;
-        $datesFormat = 'd.m.Y';
 
-        $reservations = Reservation::with(['status', 'hotel'])
-                                    ->withCount(['clients', 'rooms'])
-                                    ->paginate($resultsPerPage);
-        return view('reservations.index', compact('reservations', 'notesLimit', 'datesFormat'));
+        if (request()->wantsJson()) {
+            $reservations = Reservation::with(['status', 'hotel'])
+                                        ->withCount(['clients', 'rooms'])
+                                        ->paginate($resultsPerPage);
+            return response($reservations, 201);
+        }
+
+        return view('reservations.index', compact('notesLimit', 'datesFormat'));
     }
 }

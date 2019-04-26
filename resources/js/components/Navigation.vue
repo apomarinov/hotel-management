@@ -21,13 +21,9 @@
                     t.selected = (tab.name == t.name);
                 });
             },
-            tabClasses(tab) {
-                let classes = 'navbar-item ';
-                classes += tab == this.tab ? 'is-active' : '';
-                return classes;
+            getTabClasses(tab) {
+                return ['navbar-item', tab == this.tab ? 'is-active' : ''];
             }
-        },
-        created() {
         }
     }
 </script>

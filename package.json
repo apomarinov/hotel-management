@@ -25,7 +25,8 @@
     },
     "dependencies": {
         "bulma": "^0.7.4",
-        "vue-filter-date-format": "^1.2.3",
+        "laravel-vue-bulma-paginator": "^1.0.0",
+        "vue-moment": "^4.0.0",
         "vue2-filters": "^0.6.0"
     }
 }
