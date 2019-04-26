@@ -9,7 +9,7 @@ class ReservationsController extends Controller
     public function index()
     {
         $resultsPerPage = 4;
-        $notesLimit = 200;
+        $notesLimit = 190;
         $datesFormat = 'd.m.Y';
 
         $reservations = Reservation::with(['status', 'hotel'])

@@ -48,5 +48,11 @@
 @endsection
 
 @section('footer')
-    {{ $reservations->render() }}
+    <div class="columns is-marginless" >
+        <div class="column"></div>
+        <div class="column is-three-fifths">
+            {{ $reservations->render() }}
+        </div>
+        <div class="column"></div>
+    </div>
 @endsection
