@@ -9,6 +9,7 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 window.axios = require('axios');
+window._ = require('lodash');
 window.Event = new Vue();
 
 Vue.use(require('vue2-filters'));

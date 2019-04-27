@@ -5,7 +5,8 @@
         name: "Reservations",
         data() {
             return {
-                reservations: {}
+                reservations: {},
+                showHelper: false
             }
         },
         methods: {
@@ -22,7 +23,11 @@
             ReservationService
                 .list(1)
                 .then(data => {
-                    this.reservations = data
+                    this.reservations = data;
+
+                    if(!this.reservations.data) {
+                        this.showhelper = true;
+                    }
                 });
         }
     }

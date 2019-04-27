@@ -1,6 +1,7 @@
 <script>
     import ReservationService from '../Services/ReservationService';
     import ClientService from "../Services/ClientService";
+    import RoomService from "../Services/RoomService";
 
     export default {
         name: "ReservationForm",
@@ -8,70 +9,19 @@
             return {
                 reservation: {
                     hotel: {},
-                    dateFrom: {},
-                    dateTo: {},
-                    clients: [
-                        {
-                            name: "Apostol Marinov",
-                            phone: "0889601333",
-                            email: "apomarinov@gmail.com",
-                            updated_at: "2019-04-26 15:35:30",
-                            created_at: "2019-04-26 15:35:30",
-                            id: 55
-                        }
-                    ],
-                    rooms: [
-                        {
-                            "id": 2,
-                            "hotel_id": 1,
-                            "floor": 1,
-                            "number": 112,
-                            "amenity_package": {
-                                "id": 1,
-                                "name": "Standard"
-                            }
-                        },
-                        {
-                            "id": 6,
-                            "hotel_id": 1,
-                            "floor": 4,
-                            "number": 411,
-                            "amenity_package": {
-                                "id": 4,
-                                "name": "Suite"
-                            }
-                        },
-                        {
-                            "id": 7,
-                            "hotel_id": 2,
-                            "floor": 1,
-                            "number": 111,
-                            "amenity_package": {
-                                "id": 1,
-                                "name": "Standard"
-                            }
-                        }
-                    ]
+                    reservationStatus: {},
+                    dateFrom: '',
+                    dateTo: '',
+                    notes: '',
+                    clients: [],
+                    newRooms: [],
+                    rooms: []
                 },
                 newClient: null,
-                amenityPackage: [
-                    {
-                        "id": 1,
-                        "name": "Standard"
-                    }
-                ],
-                roomFilters: [
-                    {
-                        "id": 4,
-                        "type": "misc",
-                        "value": "Pet Friendly"
-                    },
-                    {
-                        "id": 1,
-                        "type": "view",
-                        "value": "Pool Side"
-                    }
-                ]
+                amenityPackage: [],
+                rooms: [],
+                roomFilters: [],
+                errors: []
             }
         },
         computed: {
@@ -115,10 +65,65 @@
                         return obj.id != clientId;
                     });
                 });
+            },
+            addFilter(f) {
+                if(this.roomFilters.indexOf(f) < 0) {
+                    this.roomFilters.push(f);
+                }
+                this.getRooms();
+            },
+            removeFilter(f) {
+                this.roomFilters = this.roomFilters.filter(function( obj ) {
+                    return obj.id != f.id;
+                });
+                this.getRooms();
+            },
+            changeAmenityPackage(p) {
+                this.amenityPackage = p;
+                this.getRooms();
+            },
+            getRooms() {
+                let roomFilters = {
+                    attributes: this.roomFilters.map(f => f.id),
+                    hotel_id: this.reservation.hotel.id || 0,
+                    package_id: this.amenityPackage.id || 0
+                };
+                RoomService
+                    .getAvailableRooms(roomFilters)
+                    .then(response => {
+                        this.rooms = response;
+                    });
+            },
+            toggleRoom(room, state) {
+                if(state) {
+                    if(this.reservation.newRooms.indexOf(room) < 0) {
+                        this.reservation.newRooms.push(room);
+                    }
+                } else {
+                    this.reservation.newRooms = this.reservation.newRooms.filter(function( obj ) {
+                        return obj.id != room.id;
+                    });
+                }
+            },
+            submitReservation() {
+                window.location.href = "/reservations";
+                let canSubmit = true;
+                canSubmit = canSubmit && this.reservation.hotel.id;
+                canSubmit = canSubmit && this.reservation.dateFrom;
+                canSubmit = canSubmit && this.reservation.dateTo;
+                canSubmit = canSubmit && this.reservation.clients.length;
+                canSubmit = canSubmit && (this.reservation.newRooms.length || this.reservation.rooms.length);
+
+                if(canSubmit) {
+                    ReservationService.save(this.reservation)
+                        .then(data => {
+                            window.location.href = "/reservations";
+                        })
+                        .catch(response => {
+                            this.errors = response.errors || [];
+                        });
+                }
             }
-        },
-        created() {
-            console.log(1);
         }
     }
 </script>

@@ -16,7 +16,9 @@ Route::get('/', 'HomeController@index');
 Route::resource('reservations', 'ReservationsController');
 Route::resource('clients', 'ClientsController');
 Route::resource('rooms', 'RoomsController');
+Route::resource('attributes', 'AttributesController');
 Route::resource('hotels', 'HotelsController');
+Route::resource('amenity-packages', 'AmenityPackagesController');
 Route::resource('reservation-status', 'ReservationStatusController');
 
 Route::get('available-rooms', 'RoomsController@availableRooms');

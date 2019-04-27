@@ -13,10 +13,10 @@ class AppSeeder extends Seeder
     {
         $this->call([
             HotelSeeder::class,
+            AmenityPackageSeeder::class,
             RoomSeeder::class,
-            ClientSeeder::class,
-            ReservationSeeder::class,
-            AmenityPackageSeeder::class
+//            ClientSeeder::class,
+//            ReservationSeeder::class
         ]);
     }
 }

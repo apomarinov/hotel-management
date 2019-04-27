@@ -53,6 +53,13 @@
                             </div>
                         </div>
                     </div>
+                    <div class="has-text-centered" v-if="showHelper" style="font-size: 1.4rem;">
+                        There are no reservations.
+                        <a class="button is-info is-inverted" href="/reservations/create">
+                            <span>Create</span>
+                        </a>
+                        a new one.
+                    </div>
                 </div>
                 <div class="column"></div>
             </div>

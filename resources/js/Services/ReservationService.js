@@ -12,7 +12,6 @@ export default class ReservationService {
         return new Promise((resolve, reject) => {
             axios.get(this.apiUrl(), {params: {page: page}})
                 .then(response => {
-
                     resolve(response.data);
                 })
                 .catch(error => {
@@ -26,6 +25,25 @@ export default class ReservationService {
             let url = this.apiUrl()+`/${reservationId}/`+this.clientsUrl()+`/${clientId}`;
             axios.delete(url)
                 .then(response => {
+                    resolve(response.data);
+                })
+                .catch(error => {
+                    reject(error.response.data);
+                });
+        });
+    }
+
+    static save(data) {
+        let url = this.apiUrl();
+        let method = 'post';
+        if(data.id) {
+            url = `${url}/${data.id}`;
+            method = 'patch';
+        }
+        return new Promise((resolve, reject) => {
+            axios[method](url, data)
+                .then(response => {
+                    console.log(response);
                     resolve(response.data);
                 })
                 .catch(error => {

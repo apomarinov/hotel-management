@@ -1,7 +1,7 @@
 <template>
     <b-dropdown aria-role="list" :bind="model" @change="updateModel($event)" v-if="items">
         <button :class="classes()" slot="trigger">
-            <span>{{ selected[optionName] || name }}</span>
+            <span>{{ selected.id ? selected[optionName] : name }}</span>
             <b-icon icon="menu-down"></b-icon>
         </button>
 
@@ -25,13 +25,23 @@
         ],
         data() {
           return {
+              defaultOption: {},
               items: [],
               selected: {}
           }
         },
         created() {
-            if(!this.values && this.resource) {
-                this.getItemsFromResource();
+            this.defaultOption = {};
+            this.defaultOption[this.valueOption || 'id'] = 0;
+            this.defaultOption[this.optionName || 'value'] = 'None';
+
+            if(!this.values) {
+                if(this.resource) {
+                    this.getItemsFromResource();
+                }
+            } else {
+                this.items = this.values;
+                this.items.unshift(this.defaultOption);
             }
             this.selected = this.model || {};
         },
@@ -44,9 +54,10 @@
                 this.$emit('change', selected);
             },
             getItemsFromResource() {
-                axios.get(this.resource, )
+                axios.get(this.resource)
                     .then(response => {
                         this.items = response.data;
+                        this.items.unshift(this.defaultOption);
                     });
             }
         }

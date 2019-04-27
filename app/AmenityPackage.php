@@ -19,4 +19,12 @@ class AmenityPackage extends Model
     {
         return $this->belongsToMany(Item::class);
     }
+
+    public function getByAttributeIds($ids)
+    {
+        return self::with('attributes')
+                    ->whereHas('attributes', function ($query) use ($ids) {
+                        $query->whereIn('attribute_id', $ids);
+                    })->get();
+    }
 }
