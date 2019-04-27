@@ -23,10 +23,9 @@
                 let gButton = $(this.$refs['gButton']);
 
                 // TODO: move to GoogleAPI service...
+                gButton.addClass('is-loading');
                 this.$gapi.signIn()
                     .then(user => {
-                        gButton.addClass('is-loading');
-
                         this.$gapi._libraryLoad('client')
                             .then(client => {
                                 let batch = client.newBatch();
@@ -41,7 +40,7 @@
 
                                 batch.execute(response => {
                                     gButton.removeClass('is-loading');
-                                    console.log(response)
+                                    this.$dialog.alert('Reservations Synced!')
                                 });
                             })
                             .catch(err => {
@@ -51,6 +50,16 @@
                     .catch(err => {
                         gButton.removeClass('is-loading');
                     });
+            },
+            reservationSyncFail() {
+                this.$dialog.alert({
+                    title: 'Error',
+                    message: 'Reservation Sync Failed.',
+                    type: 'is-danger',
+                    hasIcon: true,
+                    icon: 'times-circle',
+                    iconPack: 'fa'
+                })
             }
         },
         created() {

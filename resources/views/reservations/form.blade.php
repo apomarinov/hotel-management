@@ -10,7 +10,7 @@
                             <div class="content">
                                 <p>
                                 <div class="column is-fullwidth has-text-centered"><strong class="is-size-3">Reservation</strong></div>
-                                <div class="columns">
+                                <div class="columns" v-if="!reservation.id">
                                     <div class="column"></div>
                                     <div class="column is-one-fifth field has-addons has-addons-centered">
                                         <dropdown
