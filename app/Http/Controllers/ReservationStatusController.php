@@ -3,10 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\ReservationStatus;
-use Illuminate\Http\Request;
 
 class ReservationStatusController extends Controller
 {
+    /**
+     * ReservationStatuses index view
+     *
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
+     */
     public function index()
     {
         if (request()->wantsJson()) {

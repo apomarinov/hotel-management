@@ -8,19 +8,23 @@ class Hotel extends Model
 {
     protected $guarded = [];
 
+    /**
+     * Rooms relationship
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function rooms()
     {
         return $this->hasMany(Room::class);
     }
 
+    /**
+     * Reservations relationship
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function reservations()
     {
         return $this->hasMany(Reservation::class);
-    }
-
-
-    public function availableRooms()
-    {
-        return self::whith('rooms')->has('rooms', '<', 1)->get();
     }
 }

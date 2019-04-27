@@ -15,6 +15,7 @@ class AppSeeder extends Seeder
             HotelSeeder::class,
             AmenityPackageSeeder::class,
             RoomSeeder::class,
+// Uncomment these seeders if you want example clients and reservations
 //            ClientSeeder::class,
 //            ReservationSeeder::class
         ]);

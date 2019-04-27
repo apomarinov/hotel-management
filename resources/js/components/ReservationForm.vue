@@ -129,7 +129,7 @@
                 if(canSubmit) {
                     ReservationService.save(this.reservation)
                         .then(data => {
-                            window.location.href = "/reservations";
+                            window.location.href = ReservationService.apiUrl();
                         })
                         .catch(response => {
                             this.errors = response.errors || [];

@@ -1,9 +1,20 @@
 export default class ReservationService {
 
+    /**
+     * Resource url
+     *
+     * @returns {string}
+     */
     static apiUrl() {
         return '/clients';
     }
 
+    /**
+     * Save client
+     *
+     * @param data
+     * @returns {Promise<any>}
+     */
     static save(data) {
         let url = this.apiUrl();
         let method = 'post';
@@ -23,6 +34,12 @@ export default class ReservationService {
         });
     }
 
+    /**
+     * Delete client
+     *
+     * @param id
+     * @returns {Promise<any>}
+     */
     static delete(id) {
         return new Promise((resolve, reject) => {
             let url = this.apiUrl()+`/${id}/`;

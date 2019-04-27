@@ -10,16 +10,22 @@ class AmenityPackage extends Model
 
     protected $hidden = ['pivot'];
 
+    /**
+     * Attributes relationship
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function attributes()
     {
         return $this->belongsToMany(Attribute::class);
     }
 
-    public function items()
-    {
-        return $this->belongsToMany(Item::class);
-    }
-
+    /**
+     * Get AmenityPackages by Attribute ids
+     *
+     * @param $ids
+     * @return AmenityPackage[]|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
+     */
     public function getByAttributeIds($ids)
     {
         return self::with('attributes')

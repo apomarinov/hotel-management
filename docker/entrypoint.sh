@@ -17,6 +17,7 @@ if [[ -n "${BUILD}" ]]; then
   npm install
 
   printf "${BLUE} NPM BUILD ${NC}\n"
+  # TODO: If using 'prod' EC2 instance hangs on "92% chunk asset optimization"
   npm run dev
 fi
 

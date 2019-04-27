@@ -7,11 +7,21 @@ use App\Room;
 
 class RoomsController extends Controller
 {
+    /**
+     * Rooms index view
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index()
     {
         return view('rooms.index');
     }
 
+    /**
+     * Get available rooms
+     *
+     * @return Room[]|array|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection|null
+     */
     public function availableRooms()
     {
         $rooms = Room::with('amenityPackage')->has('reservations', '<', 1);

@@ -12,6 +12,11 @@ class Client extends Model
         'pivot'
     ];
 
+    /**
+     * Reservations relationship
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function reservations()
     {
         return $this->belongsToMany(Reservation::class);

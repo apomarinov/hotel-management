@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\AmenityPackage;
 use App\Client;
 use App\Hotel;
 use App\Reservation;
@@ -11,6 +10,12 @@ use App\Room;
 
 class ReservationsController extends Controller
 {
+    /**
+     * Reservations index view
+     * includes relationships
+     *
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
+     */
     public function index()
     {
         $resultsPerPage = 4;
@@ -34,6 +39,21 @@ class ReservationsController extends Controller
         return view('reservations.index');
     }
 
+    /**
+     * Reservations show action
+     *
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
+     */
+    public function show()
+    {
+        return view('reservations.edit');
+    }
+
+    /**
+     * Returns not synchronized to Google Calendar reservations
+     *
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+     */
     public function googleEvents()
     {
         if (request()->wantsJson()) {
@@ -46,11 +66,21 @@ class ReservationsController extends Controller
         }
     }
 
+    /**
+     * Reservations create view
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function create()
     {
         return view('reservations.create');
     }
 
+    /**
+     * Save a reservation and attach clients and rooms
+     *
+     * @return array|\Illuminate\Http\JsonResponse
+     */
     public function store()
     {
         $data = $this->validateRequestData();
@@ -76,6 +106,13 @@ class ReservationsController extends Controller
         return $response;
     }
 
+    /**
+     * Removes a client from the reservation
+     *
+     * @param Reservation $reservation
+     * @param Client $client
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+     */
     public function deleteClient(Reservation $reservation, Client $client)
     {
         $result = $reservation->clients()->detach($client->id);
@@ -83,6 +120,11 @@ class ReservationsController extends Controller
         return response('', $result ? 200 : 404);
     }
 
+    /**
+     * Validates reservation payload
+     *
+     * @return mixed
+     */
     private function validateRequestData()
     {
         $result['errors'] = null;
@@ -148,6 +190,12 @@ class ReservationsController extends Controller
         return $result;
     }
 
+    /**
+     * Creates event payload for Google Calendar sync
+     *
+     * @param $reservations
+     * @return array
+     */
     private function prepareGoogleCalendarEventPayload($reservations)
     {
         $payload = [];
@@ -163,6 +211,13 @@ class ReservationsController extends Controller
         return array_values($payload);
     }
 
+    /**
+     * Get Event summary including reservation data
+     *
+     * @param $reservation
+     * @return array|string
+     * @throws \Throwable
+     */
     private function prepareEventSummary($reservation)
     {
         $data = [];
@@ -176,6 +231,12 @@ class ReservationsController extends Controller
         return view('reservations.google-event-summary', $data)->render();
     }
 
+    /**
+     * Prepare event attendee emails
+     *
+     * @param $clients
+     * @return array
+     */
     private function getEventAttendees($clients)
     {
         return array_map(function($client) {

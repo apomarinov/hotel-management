@@ -17,11 +17,12 @@
                     .then(data => this.reservations = data);
             },
             editReservation(id) {
-                console.log(id);
+                window.location.href = ReservationService.editUrl();
             },
             syncReservationsToGoogle() {
                 let gButton = $(this.$refs['gButton']);
 
+                // TODO: move to GoogleAPI service...
                 this.$gapi.signIn()
                     .then(user => {
                         gButton.addClass('is-loading');

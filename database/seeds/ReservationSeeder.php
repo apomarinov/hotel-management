@@ -17,9 +17,16 @@ class ReservationSeeder extends Seeder
      */
     public function run()
     {
-        $faker = Faker\Factory::create();
-
+        // manipulate sample data
         $freeRooms = 5;
+        $maxPersonCount = 8;
+        $maxRoomCount = 3;
+        $clientSeedCount = 20;
+        $minDayStay = 2;
+        $maxDayStay = 15;
+
+        $faker = Faker\Factory::create();
+        
         $clientIds = Client::all()->pluck('id');
         $roomIds = Room::all()->shuffle()->slice($freeRooms)->pluck('id');
 
@@ -27,12 +34,6 @@ class ReservationSeeder extends Seeder
         $lastHotelId = Hotel::max('id');
         $firstReservationStatusId = ReservationStatus::min('id');
         $lastReservationStatusId = ReservationStatus::max('id');
-
-        $maxPersonCount = 8;
-        $maxRoomCount = 3;
-        $clientSeedCount = 20;
-        $minDayStay = 2;
-        $maxDayStay = 15;
 
         foreach (range(1, $clientSeedCount) as $index) {
             $dayBuffer = rand(-20, 20);

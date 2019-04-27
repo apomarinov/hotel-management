@@ -24,8 +24,10 @@ class RoomSeeder extends Seeder
             'amenity_package_id' => 1
         ];
 
+        // create rooms for each hotel
         $floors = 4;
         $roomsOnFloor = 5;
+
         foreach ($hotelIds as $id) {
             $room = $data;
             $room['hotel_id'] = $id;
