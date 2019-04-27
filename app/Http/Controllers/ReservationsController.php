@@ -7,8 +7,6 @@ use App\Hotel;
 use App\Reservation;
 use App\ReservationStatus;
 use App\Room;
-use Illuminate\Support\Facades\Request;
-use SebastianBergmann\CodeCoverage\Report\Xml\Project;
 
 class ReservationsController extends Controller
 {

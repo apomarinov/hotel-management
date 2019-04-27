@@ -10,6 +10,24 @@ export default class ReservationService {
     }
 
     /**
+     * Get client listing
+     *
+     * @param page
+     * @returns {Promise<any>}
+     */
+    static list(page) {
+        return new Promise((resolve, reject) => {
+            axios.get(this.apiUrl(), {params: {page: page}})
+                .then(response => {
+                    resolve(response.data);
+                })
+                .catch(error => {
+                    reject(error.response.data);
+                });
+        });
+    }
+
+    /**
      * Save client
      *
      * @param data
@@ -42,7 +60,7 @@ export default class ReservationService {
      */
     static delete(id) {
         return new Promise((resolve, reject) => {
-            let url = this.apiUrl()+`/${id}/`;
+            let url = this.apiUrl()+`/${id}`;
             axios.delete(url)
                 .then(response => {
                     resolve(response.data);

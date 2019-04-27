@@ -45,10 +45,12 @@
                             })
                             .catch(err => {
                                 gButton.removeClass('is-loading');
+                                this.reservationSyncFail();
                             });
                     })
                     .catch(err => {
                         gButton.removeClass('is-loading');
+                        this.reservationSyncFail();
                     });
             },
             reservationSyncFail() {

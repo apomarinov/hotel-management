@@ -83,7 +83,7 @@
                                         <div class="column is-1"><a class="button is-danger" @click="removeClientFromReservation(client.id)"><i class="fas fa-times"></i></a></div>
                                     </div>
                                 </div>
-                                <client-form v-if="newClient" @save="clientSaved($event)" @delete="newClient = null"></client-form>
+                                <client-form v-if="newClient" :in-reservation="true" @save="clientSaved($event)" @delete="newClient = null"></client-form>
                                 <div class="columns" v-if="!newClient">
                                     <div class="column"></div>
                                     <div class="column is-one-fifth field has-addons has-addons-centered">

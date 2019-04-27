@@ -45,22 +45,46 @@
             <div class="column is-1">
                 <a class="button is-link" @click="saveClient">Save</a>
             </div>
-            <div class="column is-1">
+            <div class="column is-1" v-if="clientObj.id || inReservation">
                 <a class="button is-danger" @click="deleteClient">Delete</a>
             </div>
             <div class="column"></div>
+        </div>
+        <div v-if="clientObj.reservations">
+            <hr>
+            <div class="column is-fullwidth has-text-centered"><strong class="is-size-3">Reservations</strong></div>
+            <div class="columns is-marginless is-boxed is-fullwidth">
+                <div class="column">
+                    <div class="box" v-for="reservation in clientObj.reservations">
+                        <div class="columns">
+                            <div class="column"><i class="fas fa-h-square">&nbsp;</i><strong>{{ reservation.hotel.name }}</strong></div>
+                            <div class="column"><strong>{{ reservation.date_from | moment('DD.MM.YYYY') }}</strong></div>
+                            <div class="column is-1"><i class="fas fa-angle-right"></i></div>
+                            <div class="column"><strong>{{ reservation.date_to | moment('DD.MM.YYYY') }}</strong></div>
+                            <div class="column is-1">
+                                <a class="level-item" @click="viewReservation(reservation.id)">
+                                <span class="icon is-medium">
+                                  <i class="fas fa-eye" aria-hidden="true"></i>
+                                </span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
-
     import ClientService from "../Services/ClientService";
+    import ReservationService from "../Services/ReservationService";
 
     export default {
         name: "ClientForm",
         props: [
-            'client',
+            'data',
+            'inReservation',
         ],
         data() {
             return {
@@ -68,9 +92,11 @@
                     id: 0,
                     name: '',
                     phone: '',
-                    email: ''
+                    email: '',
+                    reservations: []
                 },
-                errors: []
+                errors: [],
+                model: {}
             }
         },
         computed: {
@@ -80,20 +106,44 @@
         },
         methods: {
             deleteClient() {
-                this.$emit('delete');
+                // if form is used in reservation form
+                // just emit to registration form
+                if(!this.inReservation) {
+                    this.$dialog.confirm({
+                        message: 'Delete client?',
+                        onConfirm: () => ClientService
+                                            .delete(this.clientObj.id)
+                                            .then(response => window.location.href = ClientService.apiUrl())
+                    });
+                } else {
+                    this.$emit('delete');
+                }
             },
             saveClient() {
-                this.errors= [];
+                this.errors = [];
+
                 ClientService.save(this.clientObj)
-                    .then(data => this.$emit('save', data))
+                    .then(data =>{
+                        if(!this.inReservation) {
+                            window.location.href = ClientService.apiUrl();
+                        } else {
+                            this.$emit('save', data);
+                        }
+                    })
                     .catch(response => {
                         if(response.errors) {
                             this.errors = response.errors;
                         }
                     });
+            },
+            viewReservation(id) {
+                window.location.href = ReservationService.apiUrl() + '/' + id;
             }
         },
         created() {
+            if(!this.inReservation) {
+                this.clientObj = this.data;
+            }
         }
     }
 </script>

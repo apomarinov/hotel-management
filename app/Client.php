@@ -12,6 +12,10 @@ class Client extends Model
         'pivot'
     ];
 
+    protected $casts = [
+        'phone' => 'integer',
+    ];
+
     /**
      * Reservations relationship
      *
@@ -20,5 +24,16 @@ class Client extends Model
     public function reservations()
     {
         return $this->belongsToMany(Reservation::class);
+    }
+
+    /**
+     * Reservation Hotel relationship
+     *
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOneThrough
+     */
+    public function hotel()
+    {
+        return $this->hasOneThrough(Reservation::class, Hotel::class);
     }
 }
