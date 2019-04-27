@@ -15,6 +15,7 @@
         props: [
             'name',
             'id',
+            'min',
             'fromId',
             'toId'
         ],
@@ -30,6 +31,11 @@
             this.currentMinDate = this.minDate;
             this.currentMaxDate = this.maxDate;
 
+            if(this.min) {
+                this.currentMinDate = this.min;
+                this.currentMinDate = this.currentMinDate.addDays(-1);
+            }
+
             let connectedPickerId = this.fromId || this.toId;
             if(connectedPickerId) {
                 Event.$on(`datepicker.${connectedPickerId}.change`, this.handleConnectedPickerChange);
@@ -42,7 +48,8 @@
             },
             handleConnectedPickerChange(date) {
                 if(this.fromId) {
-                    this.currentMinDate = date || this.maxDate;
+                    this.currentMinDate = date || this.minDate;
+                    this.currentMinDate = this.currentMinDate.addDays(1);
                 }
                 if(this.toId) {
                     this.currentMaxDate = date || this.maxDate;

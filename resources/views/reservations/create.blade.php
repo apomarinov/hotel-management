@@ -33,6 +33,7 @@
                                                 name="Date From"
                                                 id="from"
                                                 to-id="to"
+                                                :min="new Date()"
                                                 @change="reservation.dateFrom = $event">
                                             </date-picker>
                                         </div>
@@ -41,6 +42,7 @@
                                                 name="Date To"
                                                 id="to"
                                                 from-id="from"
+                                                :min="new Date()"
                                                 @change="reservation.dateTo = $event">
                                             </date-picker>
                                         </div>
@@ -52,7 +54,7 @@
                                 <p class="help is-danger" v-if="this.errors.dateTo">
                                     @{{ this.errors.dateTo[0] }}
                                 </p>
-                                <textarea class="textarea" placeholder="Notes..." :model="reservation.notes"></textarea>
+                                <textarea class="textarea" placeholder="Notes..." v-model="reservation.notes"></textarea>
                             </p>
                         </div>
                     </div>

@@ -31,7 +31,7 @@
                             </a>
                         </p>
                         <p class="control is-expanded">
-                            <input class="input" type="number" min="5" placeholder="Your phone number" v-model="clientObj.phone">
+                            <input class="input" type="number" min="5" placeholder="Phone number" v-model="clientObj.phone">
                         </p>
                     </div>
                 </div>

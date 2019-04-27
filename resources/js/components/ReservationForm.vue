@@ -106,7 +106,6 @@
                 }
             },
             submitReservation() {
-                window.location.href = "/reservations";
                 let canSubmit = true;
                 canSubmit = canSubmit && this.reservation.hotel.id;
                 canSubmit = canSubmit && this.reservation.dateFrom;

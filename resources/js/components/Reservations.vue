@@ -25,8 +25,8 @@
                 .then(data => {
                     this.reservations = data;
 
-                    if(!this.reservations.data) {
-                        this.showhelper = true;
+                    if(!this.reservations.data || !this.reservations.data.length) {
+                        this.showHelper = true;
                     }
                 });
         }
