@@ -131,6 +131,9 @@
                                         </b-field>
                                     </div>
                                 </div>
+                                <div class="columns is-mobile" v-if="noRoomsFound">
+                                    <div class="column is-half is-offset-one-quarter has-text-centered notification is-large">No rooms</div>
+                                </div>
                                 <div class="columns" v-for="room in reservation.rooms">
                                     <div class="column"></div>
                                     <div class="column is-1"><strong>Room @{{ room.number }}</strong></div>

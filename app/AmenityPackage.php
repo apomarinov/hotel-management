@@ -25,6 +25,6 @@ class AmenityPackage extends Model
         return self::with('attributes')
                     ->whereHas('attributes', function ($query) use ($ids) {
                         $query->whereIn('attribute_id', $ids);
-                    })->get();
+                    }, count($ids))->get();
     }
 }

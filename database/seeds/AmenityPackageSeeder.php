@@ -39,9 +39,9 @@ class AmenityPackageSeeder extends Seeder
             $p = AmenityPackage::where('name', $p['name'])->first();
 
             $p->attributes()->attach($viewAttributeIds->random());
-            $p->attributes()->attach($miscAttributeIds->random(3));
+            $p->attributes()->attach($miscAttributeIds->random(2));
             $p->attributes()->attach($techAttributeIds->random(2));
-            $p->attributes()->attach($furnitureAttributeIds->random(3)->toArray(), ['quantity' => 1]);
+            $p->attributes()->attach($furnitureAttributeIds->random(2)->toArray(), ['quantity' => 1]);
         }
     }
 }

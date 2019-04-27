@@ -18,6 +18,7 @@
                     rooms: []
                 },
                 newClient: null,
+                noRoomsFound: false,
                 amenityPackage: [],
                 rooms: [],
                 roomFilters: [],
@@ -83,6 +84,7 @@
                 this.getRooms();
             },
             getRooms() {
+                this.noRoomsFound = false;
                 let roomFilters = {
                     attributes: this.roomFilters.map(f => f.id),
                     hotel_id: this.reservation.hotel.id || 0,
@@ -92,6 +94,7 @@
                     .getAvailableRooms(roomFilters)
                     .then(response => {
                         this.rooms = response;
+                        this.noRoomsFound = this.rooms.length == 0;
                     });
             },
             toggleRoom(room, state) {

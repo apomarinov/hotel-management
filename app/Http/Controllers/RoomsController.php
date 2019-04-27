@@ -15,6 +15,7 @@ class RoomsController extends Controller
     public function availableRooms()
     {
         $rooms = Room::with('amenityPackage')->has('reservations', '<', 1);
+        $result = null;
 
         if(request()->has('attributes')) {
             $packageIds = (new AmenityPackage())->getByAttributeIds(request()->get('attributes'))->pluck('id')->toArray();
@@ -28,10 +29,18 @@ class RoomsController extends Controller
         if($hotelId) {
             $rooms->where('hotel_id', $hotelId);
         }
+        
+
         if(!empty($packageIds)) {
             $rooms->whereIn('amenity_package_id', array_filter($packageIds));
+        } elseif (request()->has('attributes') || $packageId){
+            $result = [];
         }
 
-        return $rooms->orderBy('floor')->get()->makeHidden('amenity_package_id');
+        if(is_null($result)) {
+            $result = $rooms->orderBy('floor')->get()->makeHidden('amenity_package_id');
+        }
+
+        return $result;
     }
 }

@@ -5,7 +5,7 @@ use App\Item;
 use App\ReservationStatus;
 use Illuminate\Database\Migrations\Migration;
 
-class PopulateExampleData extends Migration
+class PopulateBaseData extends Migration
 {
     private $data = [
         Attribute::class => [
