@@ -16,8 +16,8 @@
                     .list(page)
                     .then(data => this.reservations = data);
             },
-            editReservation(id) {
-                window.location.href = ReservationService.editUrl();
+            viewReservation(id) {
+                window.location.href = ReservationService.apiUrl() + '/' + id;
             },
             syncReservationsToGoogle() {
                 let gButton = $(this.$refs['gButton']);

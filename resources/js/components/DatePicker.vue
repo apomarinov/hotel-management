@@ -3,6 +3,7 @@
         <b-datepicker
             placeholder="Select a date..."
             icon="calendar-today"
+            v-model="value"
             :min-date="currentMinDate"
             :max-date="currentMaxDate"
             @input="change($event)">
@@ -16,6 +17,7 @@
             'name',
             'id',
             'min',
+            'model',
             'fromId',
             'toId'
         ],
@@ -25,6 +27,7 @@
               maxDate: new Date(8640000000000000),
               currentMinDate: {},
               currentMaxDate: {},
+              value: null
           }
         },
         created() {
@@ -34,6 +37,12 @@
             if(this.min) {
                 this.currentMinDate = this.min;
                 this.currentMinDate = this.currentMinDate.addDays(-1);
+            }
+
+            if(this.model) {
+                if(typeof this.model == 'string') {
+                    this.value = new Date(this.model);
+                }
             }
 
             let connectedPickerId = this.fromId || this.toId;

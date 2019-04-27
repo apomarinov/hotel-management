@@ -7,6 +7,8 @@ use App\Hotel;
 use App\Reservation;
 use App\ReservationStatus;
 use App\Room;
+use Illuminate\Support\Facades\Request;
+use SebastianBergmann\CodeCoverage\Report\Xml\Project;
 
 class ReservationsController extends Controller
 {
@@ -33,7 +35,7 @@ class ReservationsController extends Controller
             ]);
             $reservations->data = $data;
 
-            return response($reservations, 201);
+            return response($reservations);
         }
 
         return view('reservations.index');
@@ -44,9 +46,14 @@ class ReservationsController extends Controller
      *
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
      */
-    public function show()
+    public function show(Reservation $reservation)
     {
-        return view('reservations.edit');
+        $reservation = Reservation::with(['hotel', 'clients', 'rooms', 'status'])->where('id', $reservation->id)->get()->first();
+        if (request()->wantsJson()) {
+            return response($reservation);
+        }
+
+        return view('reservations.form', compact('reservation'));
     }
 
     /**
@@ -62,7 +69,7 @@ class ReservationsController extends Controller
 
             $payload = $this->prepareGoogleCalendarEventPayload($reservations);
 
-            return response($payload, 201);
+            return response($payload);
         }
     }
 
@@ -73,7 +80,29 @@ class ReservationsController extends Controller
      */
     public function create()
     {
-        return view('reservations.create');
+        return view('reservations.form', ['reservation' => '[]']);
+    }
+
+    /**
+     * Create a registration
+     *
+     * @return array|\Illuminate\Http\JsonResponse
+     */
+    public function store()
+    {
+        return $this->save();
+    }
+
+    /**
+     * Update a registration
+     *
+     * @param Reservation $reservation
+     *
+     * @return array|\Illuminate\Http\JsonResponse
+     */
+    public function update(Reservation $reservation)
+    {
+        return $this->save($reservation);
     }
 
     /**
@@ -81,18 +110,23 @@ class ReservationsController extends Controller
      *
      * @return array|\Illuminate\Http\JsonResponse
      */
-    public function store()
+    public function save(Reservation $reservation = null)
     {
         $data = $this->validateRequestData();
         $response = [];
 
         if(empty($data['errors'])) {
-            $reservation = Reservation::create($data['reservation']);
             if($reservation) {
-                $reservation->clients()->attach($data['clients']);
-                $reservation->rooms()->attach($data['rooms']);
+                $reservation->update($data['reservation']);
+            } else {
+                $reservation = Reservation::create($data['reservation']);
+            }
+
+            if($reservation) {
+                $reservation->clients()->syncWithoutDetaching($data['clients']);
+                $reservation->rooms()->syncWithoutDetaching($data['rooms']);
                 $response = [
-                    'message' => 'Reservation created.'
+                    'message' => 'Reservation saved.'
                 ];
             } else {
                 $data['errors']['Error creating reservation.'];
@@ -136,28 +170,28 @@ class ReservationsController extends Controller
             $result['reservation']['hotel_id'] = $data['hotel']['id'] ?? 0;
         }
 
-        if(!empty($data['reservationStatus']['id']) && !ReservationStatus::find($data['reservationStatus']['id'] ?? 0)) {
-            $result['errors']['reservationStatus'] = ['Status not found.'];
+        if(!empty($data['status']['id']) && !ReservationStatus::find($data['status']['id'] ?? 0)) {
+            $result['errors']['status'] = ['Status not found.'];
         } else {
-            $result['reservation']['reservation_status_id'] = $data['reservationStatus']['id'] ?? 0;
+            $result['reservation']['reservation_status_id'] = $data['status']['id'] ?? 0;
         }
 
         if(!empty($data['notes'])) {
             $result['reservation']['notes'] = $data['notes'];
         }
 
-        $data['dateFrom'] = strtotime($data['dateFrom'] ?? '');
-        if(!$data['dateFrom']) {
-            $result['errors']['dateFrom'] = ['Date invalid.'];
+        $data['date_from'] = strtotime($data['date_from'] ?? '');
+        if(!$data['date_from']) {
+            $result['errors']['date_from'] = ['Date invalid.'];
         } else {
-            $result['reservation']['date_from'] = date('Y-m-d', $data['dateFrom']);
+            $result['reservation']['date_from'] = date('Y-m-d', $data['date_from']);
         }
 
-        $data['dateTo'] = strtotime($data['dateTo'] ?? '');
-        if(!$data['dateTo']) {
-            $result['errors']['dateTo'] = ['Date invalid.'];
+        $data['date_to'] = strtotime($data['date_to'] ?? '');
+        if(!$data['date_to']) {
+            $result['errors']['date_to'] = ['Date invalid.'];
         } else {
-            $result['reservation']['date_to'] = date('Y-m-d', $data['dateTo']);
+            $result['reservation']['date_to'] = date('Y-m-d', $data['date_to']);
         }
 
         $result['clients'] = [];

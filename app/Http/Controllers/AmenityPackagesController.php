@@ -15,7 +15,7 @@ class AmenityPackagesController extends Controller
     {
         if (request()->wantsJson()) {
             $hotels = AmenityPackage::all();
-            return response($hotels, 201);
+            return response($hotels);
         }
 
         return view('attributes.index');

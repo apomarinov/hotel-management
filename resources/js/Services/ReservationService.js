@@ -10,15 +10,6 @@ export default class ReservationService {
     }
 
     /**
-     * Resource edit url
-     *
-     * @returns {string}
-     */
-    static editUrl() {
-        return this.apiUrl()+'/edit';
-    }
-
-    /**
      * Google Events Resource url
      *
      * @returns {string}

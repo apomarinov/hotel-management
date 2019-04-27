@@ -46,7 +46,7 @@
                                         </div>
                                     </div>
                                     <div class="level-right">
-                                        <a class="level-item" @click="editReservation(r.id)">
+                                        <a class="level-item" @click="viewReservation(r.id)">
                                     <span class="icon is-medium">
                                       <i class="fas fa-marker" aria-hidden="true"></i>
                                     </span>

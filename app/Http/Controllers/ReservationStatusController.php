@@ -19,7 +19,7 @@ class ReservationStatusController extends Controller
             } else {
                 $hotels = ReservationStatus::orderBy('id')->get();
             }
-            return response($hotels, 201);
+            return response($hotels);
         }
 
         return view('reservation-status.index');

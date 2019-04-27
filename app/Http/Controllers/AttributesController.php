@@ -15,7 +15,7 @@ class AttributesController extends Controller
     {
         if (request()->wantsJson()) {
             $hotels = Attribute::all();
-            return response($hotels, 201);
+            return response($hotels);
         }
 
         return view('attributes.index');

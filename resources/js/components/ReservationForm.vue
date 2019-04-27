@@ -5,13 +5,16 @@
 
     export default {
         name: "ReservationForm",
+        props: [
+          'data'
+        ],
         data() {
             return {
                 reservation: {
                     hotel: {},
-                    reservationStatus: {},
-                    dateFrom: '',
-                    dateTo: '',
+                    status: {},
+                    date_from: '',
+                    date_to: '',
                     notes: '',
                     clients: [],
                     newRooms: [],
@@ -54,6 +57,12 @@
                 }
 
                 return resource;
+            }
+        },
+        created() {
+            if(this.data.id) {
+                this.reservation = this.data;
+                this.reservation.newRooms = [];
             }
         },
         methods: {
@@ -120,11 +129,11 @@
             submitReservation() {
                 let canSubmit = true;
                 canSubmit = canSubmit && this.reservation.hotel.id;
-                canSubmit = canSubmit && this.reservation.dateFrom;
-                canSubmit = canSubmit && this.reservation.dateTo;
-                canSubmit = canSubmit && this.reservation.reservationStatus.id;
+                canSubmit = canSubmit && this.reservation.date_from;
+                canSubmit = canSubmit && this.reservation.date_to;
+                canSubmit = canSubmit && this.reservation.status.id;
                 canSubmit = canSubmit && this.reservation.clients.length;
-                canSubmit = canSubmit && (this.reservation.newRooms.length || this.reservation.rooms.length);
+                canSubmit = canSubmit && (this.reservation.newRooms && this.reservation.newRooms.length || this.reservation.rooms.length);
 
                 if(canSubmit) {
                     ReservationService.save(this.reservation)

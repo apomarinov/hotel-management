@@ -10,7 +10,9 @@
                 tabs: [
                     'reservations',
                     'clients',
-                    'rooms'
+                    'rooms',
+                    'hotels',
+                    'attributes',
                 ],
                 burgerMenu: false
             }
