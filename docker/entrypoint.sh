@@ -17,7 +17,7 @@ if [[ -n "${BUILD}" ]]; then
   npm install
 
   printf "${BLUE} NPM BUILD ${NC}\n"
-  npm run prod
+  npm run dev
 fi
 
 # when running for first time locally
@@ -58,6 +58,7 @@ fi
 
 # if we are not deploying, start apache
 if [[ -z "${BUILD}" ]]; then
-    printf "${BLUE} APACHE ${NC}\n"
+    printf "${BLUE} DONE ${NC}\n"
     apache2ctl -D FOREGROUND
+    php artisan config:cache
 fi

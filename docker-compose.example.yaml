@@ -4,8 +4,8 @@ services:
     image: apomarinov/htm
     container_name: app
     environment:
-        - INITIAL=1
-        - SEED=1
+      - INITIAL=1
+      - SEED=1
     networks:
       - app
     ports:

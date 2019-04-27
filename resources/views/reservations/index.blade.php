@@ -3,7 +3,7 @@
 @section('content')
     <reservations inline-template>
         <div>
-            <div class="columns is-marginless" v-if="reservations && reservations.data.length">
+            <div class="columns is-marginless" v-if="!showHelper">
                 <div class="column field has-addons has-addons-centered">
                     <a class="button" @click="syncReservationsToGoogle" ref="gButton">
                         <span class="icon">
