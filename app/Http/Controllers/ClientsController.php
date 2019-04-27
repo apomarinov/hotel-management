@@ -17,7 +17,7 @@ class ClientsController extends Controller
         $resultsPerPage = 10;
 
         if (request()->wantsJson()) {
-            $clients = Client::with(['reservations'])->withCount('reservations')->orderBy('reservations_count', 'desc')->paginate($resultsPerPage);
+            $clients = Client::with(['reservations'])->paginate($resultsPerPage);
 
             $data = $clients->makeHidden([
                 'created_at',

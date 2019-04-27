@@ -16,8 +16,8 @@
                     <div class="box" v-for="client in clients.data">
                         <div class="columns">
                             <div class="column"><strong>@{{ client.name }}</strong></div>
-                            <div class="column"><small>@{{ client.phone }}</small></div>
-                            <div class="column"><small>@{{ client.email }}</small></div>
+                            <div class="column"><i class="fas fa-phone"></i>&nbsp;@{{ client.phone }}</div>
+                            <div class="column">@{{ client.email }}</div>
                             <div class="column is-1">
                                 <a class="level-item" @click="viewClient(client.id)">
                                     <span class="icon is-medium">
