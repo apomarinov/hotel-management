@@ -72,10 +72,12 @@ class PopulateBaseData extends Migration
         ],
         ReservationStatus::class => [
             [
-                'type' => 'Payed'
+                'type' => 'Payed',
+                'on_create' => true
             ],
             [
-                'type' => 'On Hold'
+                'type' => 'On Hold',
+                'on_create' => true
             ],
             [
                 'type' => 'Cancelled'

@@ -43,7 +43,6 @@ export default class ReservationService {
         return new Promise((resolve, reject) => {
             axios[method](url, data)
                 .then(response => {
-                    console.log(response);
                     resolve(response.data);
                 })
                 .catch(error => {

@@ -167,6 +167,21 @@
                         <div class="content">
                             <div class="columns">
                                 <div class="column"></div>
+                                <div class="column is-1 field has-addons has-addons-centered">
+                                    <dropdown
+                                        :value="reservation.reservationStatus"
+                                        :no-default="true"
+                                        color="is-info"
+                                        name="Choose Status"
+                                        :resource="statusDropdownResource"
+                                        option-name="type"
+                                        @change="reservation.reservationStatus = $event">
+                                    </dropdown>
+                                </div>
+                                <div class="column"></div>
+                            </div>
+                            <div class="columns" v-if="reservation.reservationStatus.id">
+                                <div class="column"></div>
                                 <div class="column is-1">
                                     <button class="button is-success is-large" @click="submitReservation">Save</button>
                                 </div>

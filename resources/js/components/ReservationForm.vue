@@ -45,6 +45,15 @@
                 }
 
                 return name;
+            },
+            statusDropdownResource() {
+                let resource = '/reservation-status';
+
+                if(!this.reservation.id) {
+                    resource += '?on_create';
+                }
+
+                return resource;
             }
         },
         methods: {
@@ -113,6 +122,7 @@
                 canSubmit = canSubmit && this.reservation.hotel.id;
                 canSubmit = canSubmit && this.reservation.dateFrom;
                 canSubmit = canSubmit && this.reservation.dateTo;
+                canSubmit = canSubmit && this.reservation.reservationStatus.id;
                 canSubmit = canSubmit && this.reservation.clients.length;
                 canSubmit = canSubmit && (this.reservation.newRooms.length || this.reservation.rooms.length);
 

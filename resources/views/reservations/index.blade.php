@@ -30,16 +30,19 @@
                                 <nav class="level is-mobile">
                                     <div class="level-left">
                                         <div class="level-item">
-                                        <span class="icon is-medium">
-                                          <i class="fas fa-users"></i>
-                                        </span>
+                                            <span class="icon is-medium">
+                                              <i class="fas fa-users"></i>
+                                            </span>
                                             @{{ r.clients_count }}
                                         </div>
                                         <div class="level-item">
-                                        <span class="icon is-medium">
-                                          <i class="fas fa-door-closed"></i>
-                                        </span>
+                                            <span class="icon is-medium">
+                                              <i class="fas fa-door-closed"></i>
+                                            </span>
                                             @{{ r.rooms_count }}
+                                        </div>
+                                        <div class="level-item">
+                                            Status:<strong>&nbsp;@{{ r.status.type }}</strong>
                                         </div>
                                     </div>
                                     <div class="level-right">

@@ -20,6 +20,7 @@
             'values',
             'resource',
             'icon',
+            'noDefault',
             'valueName',
             'optionName'
         ],
@@ -41,7 +42,9 @@
                 }
             } else {
                 this.items = this.values;
-                this.items.unshift(this.defaultOption);
+                if(!this.noDefault) {
+                    this.items.unshift(this.defaultOption);
+                }
             }
             this.selected = this.model || {};
         },
@@ -57,7 +60,10 @@
                 axios.get(this.resource)
                     .then(response => {
                         this.items = response.data;
-                        this.items.unshift(this.defaultOption);
+
+                        if(!this.noDefault) {
+                            this.items.unshift(this.defaultOption);
+                        }
                     });
             }
         }
