@@ -41,11 +41,13 @@
             {{ e[0] }}
         </p>
         <div class="columns" v-if="editMode">
-            <div class="column is-one-fifth">
+            <div class="column"></div>
+            <div class="column is-1">
                 <a class="button is-link" @click="saveClient">Save</a>
+            </div>
+            <div class="column is-1">
                 <a class="button is-danger" @click="deleteClient">Delete</a>
             </div>
-            <div class="column"></div>
             <div class="column"></div>
         </div>
     </div>
