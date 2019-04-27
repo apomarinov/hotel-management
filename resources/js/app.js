@@ -16,6 +16,7 @@ window.Event = new Vue();
 Vue.use(require('vue2-filters'));
 Vue.use(require('vue-moment'));
 Vue.use(require('buefy'));
+Vue.use(require('vue-google-api').default, require('./GapiConfig').GapiConfig);
 
 Vue.config.productionTip = false;
 

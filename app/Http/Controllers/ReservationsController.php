@@ -34,6 +34,18 @@ class ReservationsController extends Controller
         return view('reservations.index');
     }
 
+    public function googleEvents()
+    {
+        if (request()->wantsJson()) {
+            $reservations = Reservation::with(['hotel', 'clients', 'rooms', 'status'])
+                                        ->whereNull('google_event_id')->get();
+
+            $payload = $this->prepareGoogleCalendarEventPayload($reservations);
+
+            return response($payload, 201);
+        }
+    }
+
     public function create()
     {
         return view('reservations.create');
@@ -134,5 +146,43 @@ class ReservationsController extends Controller
         }
 
         return $result;
+    }
+
+    private function prepareGoogleCalendarEventPayload($reservations)
+    {
+        $payload = [];
+
+        foreach ($reservations as $reservation) {
+            $payload[$reservation['id']]['summary'] = $this->prepareEventSummary($reservation);
+            $payload[$reservation['id']]['start']['dateTime'] = $reservation['date_from'];
+            $payload[$reservation['id']]['end']['dateTime'] = $reservation['date_to'];
+            $payload[$reservation['id']]['description'] = $reservation['notes'];
+            $payload[$reservation['id']]['attendees'] = $this->getEventAttendees($reservation['clients']->toArray());
+        }
+
+        return array_values($payload);
+    }
+
+    private function prepareEventSummary($reservation)
+    {
+        $data = [];
+
+        $data['id'] = $reservation['id'];
+        $data['hotel'] = $reservation['hotel']['name'];
+        $data['clients'] = count($reservation['clients']);
+        $data['rooms'] = count($reservation['rooms']);
+        $data['status'] = $reservation['status']['type'];
+
+        return view('reservations.google-event-summary', $data)->render();
+    }
+
+    private function getEventAttendees($clients)
+    {
+        return array_map(function($client) {
+            if(empty($client['email'])) {
+                return;
+            }
+            return ['email' => $client['email']];
+        }, $clients);
     }
 }

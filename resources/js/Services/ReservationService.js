@@ -3,6 +3,9 @@ export default class ReservationService {
     static apiUrl() {
         return '/reservations';
     }
+    static googleEventUrl() {
+        return '/google-events';
+    }
 
     static clientsUrl() {
         return 'clients';
@@ -11,6 +14,18 @@ export default class ReservationService {
     static list(page) {
         return new Promise((resolve, reject) => {
             axios.get(this.apiUrl(), {params: {page: page}})
+                .then(response => {
+                    resolve(response.data);
+                })
+                .catch(error => {
+                    reject(error.response.data);
+                });
+        });
+    }
+
+    static getGoogleEventPayload() {
+        return new Promise((resolve, reject) => {
+            axios.get(this.googleEventUrl())
                 .then(response => {
                     resolve(response.data);
                 })

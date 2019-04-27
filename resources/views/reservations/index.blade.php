@@ -3,15 +3,15 @@
 @section('content')
     <reservations inline-template>
         <div>
-            <div class="columns is-marginless is-boxed is-fullwidth">
-                <div class="column"></div>
-                <div class="column is-three-fifths">
-                    <pagination :data="reservations" :limit="2" @pagination-change-page="getResults">
-                        <span slot="prev-nav">&lt; Previous</span>
-                        <span slot="next-nav">Next &gt;</span>
-                    </pagination>
+            <div class="columns is-marginless" v-if="reservations && reservations.data.length">
+                <div class="column field has-addons has-addons-centered">
+                    <a class="button" @click="syncReservationsToGoogle" ref="gButton">
+                        <span class="icon">
+                          <i class="fab fa-google"></i>
+                        </span>
+                        <span>Sync To Google</span>
+                    </a>
                 </div>
-                <div class="column"></div>
             </div>
             <div class="columns is-marginless is-boxed is-fullwidth">
                 <div class="column"></div>
@@ -66,7 +66,7 @@
                 </div>
                 <div class="column"></div>
             </div>
-            <div class="columns is-marginless is-boxed is-fullwidth">
+            <div class="columns is-marginless">
                 <div class="column"></div>
                 <div class="column is-three-fifths">
                     <pagination :data="reservations" :limit="2" @pagination-change-page="getResults">

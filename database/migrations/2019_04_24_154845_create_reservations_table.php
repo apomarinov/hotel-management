@@ -20,6 +20,7 @@ class CreateReservationsTable extends Migration
             $table->date('date_to');
             $table->text('notes')->nullable();
             $table->unsignedInteger('reservation_status_id');
+            $table->string('google_event_id')->nullable();
             $table->timestamps();
         });
     }

@@ -30,7 +30,7 @@ class ReservationSeeder extends Seeder
 
         $maxPersonCount = 8;
         $maxRoomCount = 3;
-        $clientSeedCount = 50;
+        $clientSeedCount = 20;
         $minDayStay = 2;
         $maxDayStay = 15;
 
