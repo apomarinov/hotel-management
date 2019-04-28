@@ -141,7 +141,7 @@
             }
         },
         created() {
-            if(!this.inReservation) {
+            if(!this.inReservation && this.data.id) {
                 this.clientObj = this.data;
             }
         }

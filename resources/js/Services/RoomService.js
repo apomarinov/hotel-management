@@ -1,11 +1,13 @@
-export default class RoomService {
+import ResourceService from './ResourceService';
+
+export default class RoomService extends ResourceService {
 
     /**
-     * RoomsUrl resrouce url
+     * RoomsUrl url
      *
      * @returns {string}
      */
-    static roomsUrl() {
+    static apiUrl() {
         return '/rooms';
     }
 
@@ -25,24 +27,5 @@ export default class RoomService {
      */
     static getAvailableRooms(data) {
         return this.list(this.availableRoomsUrl(), data);
-    }
-
-    /**
-     * Get room listing
-     *
-     * @param url
-     * @param data
-     * @returns {Promise<any>}
-     */
-    static list(url, data) {
-        return new Promise((resolve, reject) => {
-            axios.get(url, {params: data})
-                .then(response => {
-                    resolve(response.data);
-                })
-                .catch(error => {
-                    reject(error.response.data);
-                });
-        });
     }
 }
