@@ -1,5 +1,1 @@
-Reservation ID: {{ $id }} -
-Hotel: {{ $hotel }} -
-Clients: {{ $clients }} -
-Rooms: {{ $rooms }} -
-Status: {{ $status }}
+Reservation ID: {{ $id }} - Hotel: {{ $hotel }} - Clients: {{ $clients }} - Rooms: {{ $rooms }} - Status: {{ $status }}

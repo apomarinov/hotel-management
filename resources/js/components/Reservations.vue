@@ -1,5 +1,6 @@
 <script>
     import ReservationService from '../Services/ReservationService';
+    import GoogleAPIService from '../Services/GoogleAPIService';
 
     export default {
         name: "Reservations",
@@ -19,39 +20,27 @@
             viewReservation(id) {
                 window.location.href = ReservationService.apiUrl() + '/' + id;
             },
-            syncReservationsToGoogle() {
-                let gButton = $(this.$refs['gButton']);
-
-                // TODO: move to GoogleAPI service...
-                gButton.addClass('is-loading');
-                this.$gapi.signIn()
-                    .then(user => {
-                        this.$gapi._libraryLoad('client')
-                            .then(client => {
-                                let batch = client.newBatch();
-
-                                for (var i = 0; i < this.googleEventPayload.length; i++) {
-                                    batch.add(client.request({
-                                        path: 'https://content.googleapis.com/calendar/v3/calendars/primary/events',
-                                        method: 'POST',
-                                        body: this.googleEventPayload[i]
-                                    }));
-                                }
-
-                                batch.execute(response => {
-                                    gButton.removeClass('is-loading');
-                                    this.$dialog.alert('Reservations Synced!')
-                                });
-                            })
-                            .catch(err => {
-                                gButton.removeClass('is-loading');
-                                this.reservationSyncFail();
-                            });
-                    })
-                    .catch(err => {
-                        gButton.removeClass('is-loading');
-                        this.reservationSyncFail();
+            prepareReservationSync() {
+                if(this.googleEventPayload.length > 1) {
+                    this.$dialog.confirm({
+                        message: `Sync ${this.googleEventPayload.length} reservations?`,
+                        onConfirm: this.syncReservations
                     });
+                } else {
+                    this.syncReservations();
+                }
+            },
+            syncReservations() {
+                let gButton = $(this.$refs['gButton']);
+                gButton.addClass('is-loading');
+                
+                this.gapiService
+                    .syncReservations(this.googleEventPayload)
+                    .then(r => {
+                        gButton.removeClass('is-loading');
+                        this.$dialog.alert('Reservations Synced!')
+                    })
+                    .catch(r => gButton.removeClass('is-loading'));
             },
             reservationSyncFail() {
                 this.$dialog.alert({
@@ -65,6 +54,8 @@
             }
         },
         created() {
+            this.gapiService = new GoogleAPIService(this.$gapi);
+
             ReservationService
                 .list(1)
                 .then(data => {

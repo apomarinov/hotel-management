@@ -5,7 +5,7 @@
         <div>
             <div class="columns is-marginless" v-if="!showHelper">
                 <div class="column field has-addons has-addons-centered">
-                    <a class="button" @click="syncReservationsToGoogle" ref="gButton">
+                    <a class="button" @click="prepareReservationSync" ref="gButton">
                         <span class="icon">
                           <i class="fab fa-google"></i>
                         </span>
