@@ -74,15 +74,13 @@
                             <div class="content">
                                 <p>
                                 <div class="column is-fullwidth has-text-centered"><strong class="is-size-3">Clients</strong></div>
-                                    <br>
-                                <div class="box" v-for="client in reservation.clients">
-                                    <div class="columns">
-                                        <div class="column"><strong>@{{ client.name }}</strong></div>
-                                        <div class="column"><small>@{{ client.phone }}</small></div>
-                                        <div class="column"><small>@{{ client.email }}</small></div>
-                                        <div class="column is-1"><a class="button is-danger" @click="removeClientFromReservation(client.id)"><i class="fas fa-times"></i></a></div>
-                                    </div>
-                                </div>
+                                <br>
+                                <client
+                                    v-for="client in reservation.clients"
+                                    icon="fas fa-times"
+                                    :client="client"
+                                    @interact="removeClientFromReservation(client.id)">
+                                </client>
                                 <client-form v-if="newClient" :in-reservation="true" @save="clientSaved($event)" @delete="newClient = null"></client-form>
                                 <div class="columns" v-if="!newClient">
                                     <div class="column"></div>

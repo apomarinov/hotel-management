@@ -13,20 +13,7 @@
             <div class="columns is-marginless is-boxed is-fullwidth">
                 <div class="column"></div>
                 <div class="column is-three-fifths">
-                    <div class="box" v-for="client in clients.data">
-                        <div class="columns">
-                            <div class="column"><strong>@{{ client.name }}</strong></div>
-                            <div class="column"><i class="fas fa-phone"></i>&nbsp;@{{ client.phone }}</div>
-                            <div class="column">@{{ client.email }}</div>
-                            <div class="column is-1">
-                                <a class="level-item" @click="viewClient(client.id)">
-                                    <span class="icon is-medium">
-                                      <i class="fas fa-marker" aria-hidden="true"></i>
-                                    </span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
+                    <client v-for="client in clients.data" icon="fas fa-marker" :client="client" @interact="viewClient(client.id)"></client>
                     <div class="has-text-centered" v-if="showHelper" style="font-size: 1.4rem;">
                         There are no clients.
                         <a class="button is-info is-inverted" href="/clients/create">

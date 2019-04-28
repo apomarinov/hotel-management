@@ -50,7 +50,7 @@
             </div>
             <div class="column"></div>
         </div>
-        <div v-if="clientObj.reservations">
+        <div v-if="clientObj.reservations.length">
             <hr>
             <div class="column is-fullwidth has-text-centered"><strong class="is-size-3">Reservations</strong></div>
             <div class="columns is-marginless is-boxed is-fullwidth">
