@@ -17,7 +17,7 @@ if [[ -n "${BUILD}" ]]; then
   npm install
 
   printf "${BLUE} NPM BUILD ${NC}\n"
-  # TODO: If using 'prod' EC2 instance hangs on "92% chunk asset optimization"
+  # TODO: optimize for prod
   npm run dev
 fi
 
@@ -38,7 +38,8 @@ if [[ -n "${INITIAL}" ]]; then
             npm install
 
             printf "${BLUE} NPM BUILD ${NC}\n"
-            npm run prod
+            # TODO: optimize for prod
+            npm run dev
 
             printf "${BLUE} KEYGEN ${NC}\n"
             php artisan key:generate
