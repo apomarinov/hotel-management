@@ -28,7 +28,7 @@ class RoomsController extends Controller
         $result = null;
 
         if(request()->has('attributes')) {
-            $packageIds = (new AmenityPackage())->getByAttributeIds(request()->get('attributes'))->pluck('id')->toArray();
+            $packageIds = AmenityPackage::ofAttributes(request()->get('attributes'))->pluck('id')->toArray();
         }
         $packageId = request()->get('package_id') ?? 0;
         if($packageId) {

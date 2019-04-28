@@ -23,12 +23,13 @@ class AmenityPackage extends Model
     /**
      * Get AmenityPackages by Attribute ids
      *
+     * @param $query
      * @param $ids
-     * @return AmenityPackage[]|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
+     * @return mixed
      */
-    public function getByAttributeIds($ids)
+    public function scopeOfAttributes($query, $ids)
     {
-        return self::with('attributes')
+        return $query->with('attributes')
                     ->whereHas('attributes', function ($query) use ($ids) {
                         $query->whereIn('attribute_id', $ids);
                     }, count($ids))->get();
