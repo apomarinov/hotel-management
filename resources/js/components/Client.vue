@@ -2,7 +2,7 @@
     <div class="box">
         <div class="columns">
             <div class="column"><strong>{{ client.name }}</strong></div>
-            <div class="column"><i class="fas fa-phone"></i>&nbsp;{{ client.phone }}</div>
+            <div class="column"><i class="fas fa-phone"></i>&nbsp;+{{ client.phone }}</div>
             <div class="column">{{ client.email }}</div>
             <div class="column is-1">
                 <a class="level-item" @click="$emit('interact', client.id)">
