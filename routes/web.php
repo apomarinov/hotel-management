@@ -22,6 +22,6 @@ Route::resource('amenity-packages', 'AmenityPackagesController');
 Route::resource('reservation-status', 'ReservationStatusController');
 
 Route::get('available-rooms', 'RoomsController@availableRooms');
-Route::get('google-events', 'ReservationsController@googleEvents');
+Route::get('google-events', 'ReservationsController@notSyncedReservations');
 Route::delete('reservations/{reservation}/clients/{client}', 'ReservationsController@deleteClient');
 

@@ -107,4 +107,24 @@ export default class ReservationService {
                 });
         });
     }
+
+
+    /**
+     * Delete reservation
+     *
+     * @param id
+     * @returns {Promise<any>}
+     */
+    static delete(id) {
+        return new Promise((resolve, reject) => {
+            let url = this.apiUrl()+`/${id}`;
+            axios.delete(url)
+                .then(response => {
+                    resolve(response.data);
+                })
+                .catch(error => {
+                    reject(error.response.data);
+                });
+        });
+    }
 }

@@ -174,7 +174,7 @@
                             <div class="content">
                                 <div class="columns">
                                     <div class="column"></div>
-                                    <div class="column is-1 field has-addons has-addons-centered">
+                                    <div class="column field has-addons has-addons-centered">
                                         <dropdown
                                             :model="reservation.status"
                                             :no-default="true"
@@ -189,8 +189,11 @@
                                 </div>
                                 <div class="columns" v-if="reservation.status.id">
                                     <div class="column"></div>
-                                    <div class="column is-1  field has-addons has-addons-centered">
-                                        <button class="button is-success is-large" @click="submitReservation">Save</button>
+                                    <div class="column is-2">
+                                        <button class="button is-success is-medium" @click="submitReservation">Save</button>
+                                    </div>
+                                    <div class="column is-2" v-if="reservation.id">
+                                        <button class="button is-danger is-medium" @click="deleteReservation">Delete</button>
                                     </div>
                                     <div class="column"></div>
                                 </div>

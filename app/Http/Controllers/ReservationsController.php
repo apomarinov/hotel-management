@@ -46,7 +46,11 @@ class ReservationsController extends Controller
      */
     public function show(Reservation $reservation)
     {
-        $reservation = Reservation::with(['hotel', 'clients', 'rooms', 'status'])->where('id', $reservation->id)->get()->first();
+        $reservation = Reservation::with(['hotel', 'clients', 'rooms', 'status'])
+                                    ->where('id', $reservation->id)
+                                    ->get()
+                                    ->first();
+
         if (request()->wantsJson()) {
             return response($reservation);
         }
@@ -59,7 +63,7 @@ class ReservationsController extends Controller
      *
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
      */
-    public function googleEvents()
+    public function notSyncedReservations()
     {
         if (request()->wantsJson()) {
             $reservations = Reservation::with(['hotel', 'clients', 'rooms', 'status'])
@@ -136,6 +140,13 @@ class ReservationsController extends Controller
         }
 
         return $response;
+    }
+
+    public function destroy(Reservation $reservation)
+    {
+        $result = $reservation->delete();
+
+        return response('', $result ? 200 : 404);
     }
 
     /**

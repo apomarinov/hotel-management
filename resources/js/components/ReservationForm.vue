@@ -144,6 +144,14 @@
                             this.errors = response.errors || [];
                         });
                 }
+            },
+            deleteReservation() {
+                this.$dialog.confirm({
+                    message: 'Delete reservation?',
+                    onConfirm: () => ReservationService
+                        .delete(this.reservation.id)
+                        .then(response => window.location.href = ReservationService.apiUrl())
+                });
             }
         }
     }
